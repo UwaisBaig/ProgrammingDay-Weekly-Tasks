@@ -2,33 +2,60 @@
 //
 
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
+void checkIdentity(int matrix[3][3], int count)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if(matrix[i][j] == 1)
+			{
+				count++;
+			}
+		}
+	}
+	if (count == 3)
+	{
+		cout << "The entered matrix is an Identity matrix" << endl;
+	}
+	else
+	{
+		cout << "The entered matrix is not an Identity matrix" << endl;
+	}
+}
+
+
 int main()
 {
-    fstream file;
+    int matrix[3][3];
+	int count = 0;
 
-    file.open("pattern1.pgm", ios::out);
+	cout << "Enter the elements of a matrix : " << endl;
 
-    file << "P2\n";
-    file << "256 256\n";
-    file << "255\n";
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cout << "Enter element at position [" << i << "]" << "[" << j << "] : ";
+			cin >> matrix[i][j];
+		}		
+	}
+	cout << endl;
+	cout << "The matrix you entered is : " << endl;
 
-    for (int row = 0; row < 256; row++)
-    {
-        for (int col = 0; col < 256; col++)
-        {
-            int value = (row + col) % 255;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cout << matrix[i][j] << "\t";
+		}
+		cout << endl;
+	}
 
-            file << value << " ";
-        }
-
-        file << endl;
-    }
-
-    file.close();
+	checkIdentity(matrix, count);
 
     return 0;
 }

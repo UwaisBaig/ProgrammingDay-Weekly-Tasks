@@ -1,58 +1,26 @@
-// task2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
-#include <string>
-#include <fstream>
 
 using namespace std;
 
+void printData(int cars[][5], int rowSize)
+{
+    for (int row = 0; row < rowSize; row++)
+    {
+        for (int col = 0; col < 5; col++)
+        {
+            cout << cars[row][col] << "\t";
+        }
+        cout << endl;
+    }
+}
 int main()
 {
-    fstream file;
+    const int rowSize = 5;
+    const int columnSize = 5;
 
-    file.open("strips1.pgm", ios::out);
+    int cars [rowSize][columnSize] = { { 10, 7, 12, 10, 4 }, { 18, 11, 15, 17, 2 }, { 23, 19, 12, 16, 14 }, { 7, 12, 16, 0, 2 }, { 3, 5, 6, 2, 1 } };
 
-    if (!file)
-    {
-        cout << "File could not be created!" << endl;
-        return 0;
-    }
-
-    file << "P2\n";
-    file << "256 256\n";
-    file << "3\n";
-
-    for (int i = 0; i < 256; i++)
-    {
-        int value;
-
-        if (i < 64)
-        {
-            value = 2;
-        }
-        else if (i < 128)
-        {
-            value = 0;
-        }
-        else if (i < 192)
-        {
-            value = 3;
-        }
-        else
-        {
-            value = 1;
-        }
-
-        for (int j = 0; j < 256; j++)
-        {
-            file << value << " ";
-        }
-
-        file << endl;
-    }
-
-    file.close();
+    printData(cars, rowSize);
 
     return 0;
 }

@@ -2,37 +2,65 @@
 //
 
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
+int identicalRowCount(int matrix[3][3])
+{
+	int count = 0;
+
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = i + 1; j < 3; j++)
+		{
+			bool identical = true;
+			for (int k = 0; k < 3; k++)
+			{
+				if (matrix[i][k] != matrix[j][k])
+				{
+					identical = false;
+					break;
+				}
+			}
+			if (identical)
+			{
+				count++;
+			}
+		}
+	}
+
+	return count;
+}
+
 int main()
 {
-    fstream file;
-    file.open("pattern4.ppm", ios::out);
+    int matrix[3][3];
 
-    file << "P3\n";
-    file << "256 256\n";
-    file << "255\n";
+	for (int i = 0; i< 3;i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cout << "Enter element at position [" << i << "][" << j << "] : ";
+			cin >> matrix[i][j];
+		}
+	}
 
-    for (int row = 0; row < 256; row++)
-    {
-        for (int col = 0; col < 256; col++)
-        {
-            int blockRow = row / 16;
-            int blockCol = col / 16;
-            int value = (blockRow + blockCol) % 2;
+	cout << "The entered matrix is : " << endl;
 
-            value = value * 255;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cout << matrix[i][j] << "\t";
+		}
+		cout << endl;
+	}
 
-            file << value << " "
-                << value << " "
-                << value << " ";
-        }
+	identicalRowCount(matrix);
+	int result = identicalRowCount(matrix);
+	cout << "------------------------------------------------------------" << endl;
+	cout << "The number of identical rows are : " << result << endl;
+	cout << "------------------------------------------------------------" << endl;
 
-        file << endl;
-    }
-
-    file.close();
     return 0;
 }

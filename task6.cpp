@@ -2,33 +2,48 @@
 //
 
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
+void fire(string battleField[5][5], string coordinates)
+{
+    int row, column;
+
+    cout << "Enter the coordinates row(A, B, C, D, E) and column(1, 2, 3, 4, 5) : ";
+    cin >> coordinates;
+    
+    row = coordinates[0] - 'A';
+    column = coordinates[1] - '1';
+
+    if (battleField[row][column] == ".")
+    {
+        cout << "SPLASH !!!";
+    }
+    else if (battleField[row][column] == "*")
+    {
+        cout << "BOOM !!!";
+    }
+    else
+    {
+        cout << "Invlaid coordinates";
+    }
+}
+
 int main()
 {
-    fstream file;
+    string battleField[5][5] = { {".", ".", ".", "*", "*"}, {".", "*", ".", ".", "."}, {".", "*", ".", ".", "."}, {".", "*", ".", ".", "."}, {".", ".", "*", "*", "."} };
+    string coordinates;
 
-    file.open("strips4.pgm", ios::out);
-
-    file << "P2\n";
-    file << "256 256\n";
-    file << "15\n";
-
-    for (int row = 0; row < 256; row++)
+    for (int i = 0; i < 5; i++)
     {
-        for (int col = 0; col < 256; col++)
+        for (int j = 0; j < 5; j++)
         {
-            int value = col / 16;
-
-            file << value << " ";
+            cout << battleField[i][j] << "\t";
         }
-
-        file << endl;
+        cout << endl;
     }
 
-    file.close();
+    fire(battleField, coordinates);
 
     return 0;
 }

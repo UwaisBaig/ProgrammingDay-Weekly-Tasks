@@ -2,33 +2,38 @@
 //
 
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
+void printSum(int matrix[][3],int row)
+{
+	int sum = 0;
+
+	for (int i = 0; i < row ; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			sum = sum + matrix[i][j];
+		}		
+	}
+	cout << "The sum of elements in the matrix: " << sum << endl;
+}
+
 int main()
 {
-    fstream file;
+	int row = 3;
+	int matrix[3][3];
 
-    file.open("strips3.pgm", ios::out);
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			cout << "Enter the element : ";
+			cin >> matrix[i][j];
+		}
+	}
 
-    file << "P2\n";
-    file << "256 256\n";
-    file << "255\n";
+	printSum(matrix, row);
 
-    for (int row = 0; row < 256; row++)
-    {
-        int value = row % 255;
-
-        for (int col = 0; col < 256; col++)
-        {
-            file << value << " ";
-        }
-
-        file << endl;
-    }
-
-    file.close();
-
-    return 0;
+	return 0;
 }

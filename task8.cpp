@@ -2,40 +2,84 @@
 //
 
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
+void largestColumnFirst(int matrix[3][5])
+{
+	int maxSum = 0;
+	int maxColumnIndex = 0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		maxSum = maxSum + matrix[i][0];
+	}
+	
+	for (int j = 1; j < 5; j++)
+	{
+		int sum = 0;
+		for (int i = 0; i < 3; i++)
+		{
+			sum = sum + matrix[i][j];
+		}
+		if (sum > maxSum)
+		{
+			maxSum = sum;
+			maxColumnIndex = j;
+		}
+	}
+
+	if (maxColumnIndex != 0)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			int temp = matrix[i][0];
+			matrix[i][0] = matrix[i][maxColumnIndex];
+			matrix[i][maxColumnIndex] = temp;
+		}
+	}
+}
+
+void printMatrix(int matrix[3][5])
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			cout << matrix[i][j] << "\t";
+		}
+		cout << endl;
+	}
+}
+
 int main()
 {
-    fstream file;
-    file.open("pattern3.pgm", ios::out);
+    int matrix[3][5];
 
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			cout << "Enter element at position [" << i << "][" << j << "] : ";
+			cin >> matrix[i][j];
+		}
+	}
 
-    file << "P2\n";
-    file << "256 256\n";
-    file << "255\n";
+	cout << "The original matrix is : " << endl;
 
-    for (int row = 0; row < 256; row++)
-    {
-        for (int col = 0; col < 256; col++)
-        {
-            int blockRow = row / 32;
-            int blockCol = col / 32;
-            int value = (blockRow + blockCol) % 2;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			cout << matrix[i][j] << "\t";
+		}
+		cout << endl;
+	}
 
-            if (value == 0)
-                value = 30;
-            else
-                value = 225;
+	largestColumnFirst(matrix);
 
-            file << value << " ";
-        }
-
-        file << endl;
-    }
-
-    file.close();
+	cout << "Matrix after largest column first : " << endl;
+	printMatrix(matrix);
 
     return 0;
 }

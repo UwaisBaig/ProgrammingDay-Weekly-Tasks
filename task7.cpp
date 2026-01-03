@@ -2,35 +2,52 @@
 //
 
 #include <iostream>
-#include <fstream>
+#include <string>
 
 using namespace std;
 
+bool checkGoal(int ballRow, int ballColumn)
+{
+    int leftPole = 5;
+    int rightPole = 13;
+    int crossbarRow = 4;
+
+    bool betweenPoles = (ballColumn > leftPole && ballRow < rightPole);
+    bool aboveCrossbar = (ballRow < crossbarRow);
+
+    return betweenPoles && aboveCrossbar;
+}
+
 int main()
 {
-    fstream file;
-    file.open("pattern2.pgm", ios::out);
+    string field[7][16] = { {" ", " "," ", " ", " ", "#", " ", " ", " ", " ", " ", " ", " ", "#", " ", " "}, {" ", " "," ", " ", " ", "#", " ", " ", " ", " ", " ", " ", " ", "#", " ", " "}, {" ", " "," ", " ", " ", "#", " ", " ", " ", " ", " ", " ", " ", "#", " ", " "}, {" ", " "," ", " ", " ", "#", "#", "#", "#", "#", "#", "#", "#", "#", " ", " "}, {" ", " "," ", " ", " ", " ", " ", " ", " ", "#", " ", " ", " ", " ", " ", " "}, {" ", " "," ", " ", " ", " ", " ", " ", " ", "#", " ", " ", " ", " ", " ", " "}, {" ", " "," ", " ", " ", " ", " ", " ", " ", "#", " ", " ", " ", " ", " ", " "} };
+    string position;
+    int ballRow, ballColumn;
 
-    file << "P2\n";
-    file << "256 256\n";
-    file << "255\n";
-
-    for (int row = 0; row < 256; row++)
+    for (int i = 0; i < 7; i++)
     {
-        for (int col = 0; col < 256; col++)
+        for (int j = 0; j < 16; j++)
         {
-            int blockRow = row / 16;
-            int blockCol = col / 16;
-            int value = (blockRow + blockCol) % 2;
-
-            value = value * 255;
-
-            file << value << " ";
+            cout << field[i][j];
         }
-
-        file << endl;
+        cout << endl;
     }
+    
+    cout << "Enter the position of ball Row(A, B, C, D, E, F, G) and Column(0-16) : ";
+    cin >> position;
 
-    file.close();
+    ballRow = position[0] - 'A';
+    ballColumn = stoi(position.substr(1)) - 1;
+
+    checkGoal(ballRow, ballColumn);
+
+    if (checkGoal(ballRow, ballColumn))
+    {
+        cout << "GOAL!" << endl;
+    }
+    else
+    {
+        cout << "NO GOAL!" << endl;
+    }
     return 0;
 }

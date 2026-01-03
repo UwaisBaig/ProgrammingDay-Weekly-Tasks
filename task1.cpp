@@ -2,60 +2,28 @@
 //
 
 #include <iostream>
-#include <string>
-#include <fstream>
 
 using namespace std;
 
 int main()
 {
-    int n;
+    string colours[5] = { "Red","Black", "Brown", "Blue", "Grey" };
+    int suzukiQuantity[5] = { 10, 7, 12, 10, 4 };
+    int toyotaQuantity[5] = { 18, 11, 15, 17, 2 };
+    int nissanQuantity[5] = { 23, 19, 12, 16, 14 };
+    int bmwQuantity[5] = { 7, 12, 16, 0, 2 };
+    int audiQuantity[5] = { 3, 5, 6, 2, 1 };
 
-    cout << "Enter number of courses: ";
-    cin >> n;
-    cin.ignore();
+    int carData[5][5] = {{ 10, 7, 12, 10, 4 }, { 18, 11, 15, 17, 2 }, { 23, 19, 12, 16, 14 }, { 7, 12, 16, 0, 2 }, { 3, 5, 6, 2, 1 }};
 
-    fstream file1, file2;
-
-    file1.open("courses_file1.txt", ios::out);
-    file2.open("courses_file2.txt", ios::out);
-
-    string code, name, status;
-    int credit, semester;
-
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < 5; i++)
     {
-        cout << "\nCourse " << i + 1 << endl;
-
-        cout << "Course Code: ";
-        getline(cin, code);
-
-        cout << "Course Name: ";
-        getline(cin, name);
-
-        cout << "Credit Hours: ";
-        cin >> credit;
-
-        cout << "Semester: ";
-        cin >> semester;
-        cin.ignore();
-
-        cout << "Status: ";
-        getline(cin, status);
-
-        file1 << code << "," << name << ","
-            << credit << "," << semester << ","
-            << status << endl;
-
-        file2 << code << " " << name << " "
-            << credit << " " << semester << " "
-            << status << endl;
+        for(int j = 0; j < 5; j++)
+        {
+            cout << carData[i][j] << ", ";
+        }
+        cout << endl;
     }
-
-    file1.close();
-    file2.close();
-
-    cout << "\nFiles created successfully." << endl;
 
     return 0;
 }
